@@ -8,7 +8,7 @@ import com.pioneerx.hibernate.demo.entity.Instructor;
 import com.pioneerx.hibernate.demo.entity.InstructorDetail;
 import com.pioneerx.hibernate.demo.entity.Student;
 
-public class GetInstructorDetailDemo {
+public class DeleteInstructorDetailDemo {
 
 	public static void main(String[] args) {
 		
@@ -29,7 +29,7 @@ public class GetInstructorDetailDemo {
 			session.beginTransaction();
 
 			// get instructor detail object
-			int tempId = 3;
+			int tempId = 4;
 			InstructorDetail tempInstructorDetail = 
 					session.get(InstructorDetail.class, tempId);
 			
@@ -39,6 +39,14 @@ public class GetInstructorDetailDemo {
 			// print associated instructor
 			System.out.println("associated instructor: " + tempInstructorDetail.getInstructor());
 
+			// remove the associated object reference - break the bi-directional link
+			// ultimately, removes instructorDetail but keeps instructor
+			tempInstructorDetail.getInstructor().setInstructorDetail(null);
+			
+			// delete the instructor detail
+			System.out.println("Deleting tempInstructorDetail: " + tempInstructorDetail);
+			session.delete(tempInstructorDetail);
+			
 			// commit transaction
 			System.out.println("Commiting transaction....");
 			session.getTransaction().commit();

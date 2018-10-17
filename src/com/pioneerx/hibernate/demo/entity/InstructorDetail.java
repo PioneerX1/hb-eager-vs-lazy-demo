@@ -33,7 +33,9 @@ public class InstructorDetail {
 	
 	// add new field for instructor for bi-directional relationship
 	// "instructorDetail" refers to instructorDetail property in Instructor class
-	@OneToOne(mappedBy="instructorDetail", cascade=CascadeType.ALL)	
+	@OneToOne(mappedBy="instructorDetail", 
+			cascade={CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+					CascadeType.REFRESH})	
 	private Instructor instructor;
 	
 	public Instructor getInstructor() {
